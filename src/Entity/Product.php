@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProductRepository;
+use Symfony\Component\Validator\Constraints\Positive;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -18,6 +19,7 @@ class Product
     private ?string $name = null;
 
     #[ORM\Column(type: Types::FLOAT)]
+    #[Positive(message: "Le prix doit être strictement positif.")]
     private ?float $price = null;
 
     #[ORM\Column(type: Types::INTEGER)]
@@ -97,12 +99,17 @@ class Product
         return $this;
     }
 
+    public function getImagePath(): ?string
+    {
+        return $this->image ? 'images/products/' . $this->image : null;
+    }
+
     public function getTypes(): ?Type
     {
         return $this->types;
     }
 
-    public function setType(?Type $types): static
+    public function setTypes(?Type $types): static
     {
         $this->types = $types;
 

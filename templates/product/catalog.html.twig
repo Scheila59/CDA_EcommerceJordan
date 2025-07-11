@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catalogue des Produits{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <form method="get" class="d-flex align-items-center">
+                <label for="type-filter" class="me-2">Filtrer par type :</label>
+                <select name="type" id="type-filter" class="form-select w-auto me-2">
+                    <option value="0">Tous les types</option>
+                    {% for type in types %}
+                        <option value="{{ type.id }}" {% if selectedType == type.id %}selected{% endif %}>
+                            {{ type.label }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-jordan-primary">
+                    <i class="bi bi-filter me-1"></i>Filtrer
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for product in products %}
+        <div class="col">
+            <div class="card h-100 product-card-hover">
+                <img src="{{ product.image ?: 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg' }}" 
+                     class="card-img-top product-image" 
+                     alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{ product.name }}</h5>
+                    <p class="card-text text-muted text-center">
+                        {{ product.description|slice(0, 100) }}{% if product.description|length > 100 %}...{% endif %}
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="fw-bold text-danger">{{ product.price }}€</span>
+                        <span class="badge bg-secondary">{{ product.types.label }}</span>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    {% if product.quantity > 0 %}
+                        <a href="#" class="btn btn-jordan-primary w-100 hover-lift">
+                            <i class="bi bi-cart-plus me-1"></i>Ajouter au panier
+                        </a>
+                    {% else %}
+                        <span class="badge bg-danger w-100">Rupture de stock</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if products is empty %}
+    <div class="alert alert-info text-center" role="alert">
+        Aucun produit trouvé pour ce type.
+    </div>
+    {% endif %}
+</div>
+{% endblock %} 

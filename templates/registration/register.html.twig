@@ -1,19 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        body {
+            background-color: #000;
+        }
+        .bg-jordan-red {
+            background-color: #DC143C !important;
+        }
+        .btn-jordan-red {
+            background-color: #DC143C;
+            color: #fff;
+            border: none;
+        }
+        .btn-jordan-red:hover {
+            background-color: #fff;
+            color: #DC143C;
+            border: 1px solid #DC143C;
+        }
+        .link-jordan-red {
+            color: #DC143C !important;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-jordan-red text-white text-center">
+                    <h2>Inscription</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_start(registrationForm, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+                        <div class="mb-3">
+                            {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(registrationForm.email, {'attr': {'class': 'text-danger'}}) }}
+                        </div>
 
-    {{ form_errors(registrationForm) }}
+                        <div class="mb-3">
+                            {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(registrationForm.plainPassword, {'attr': {'class': 'text-danger'}}) }}
+                        </div>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+                        <div class="mb-3 form-check">
+                            {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                            {{ form_label(registrationForm.agreeTerms, 'J\'accepte les conditions', {'label_attr': {'class': 'form-check-label'}}) }}
+                            {{ form_errors(registrationForm.agreeTerms, {'attr': {'class': 'text-danger'}}) }}
+                        </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-jordan-red">
+                                S'inscrire
+                            </button>
+                        </div>
+                    {{ form_end(registrationForm) }}
+                </div>
+                <div class="card-footer text-center">
+                    <p class="mb-0">Déjà un compte ? <a href="{{ path('app_login') }}" class="link-jordan-red">Connectez-vous</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
