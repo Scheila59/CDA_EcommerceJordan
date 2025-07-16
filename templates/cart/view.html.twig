@@ -25,7 +25,7 @@
                         <td>{{ item.product.price|number_format(2, ',', ' ') }} €</td>
                         <td>{{ (item.product.price * item.quantity)|number_format(2, ',', ' ') }} €</td>
                         <td>
-                            <a href="{{ path('cart_remove', {id: item.product.id}) }}" class="btn btn-warning btn-sm">Retirer 1</a>
+                            <a href="{{ path('cart_remove', {id: item.product.id}) }}" class="btn btn-danger btn-sm">Enlever un article</a>
                         </td>
                     </tr>
                 {% endfor %}
