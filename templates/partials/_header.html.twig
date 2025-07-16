@@ -26,13 +26,19 @@
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">
-                <form class="d-flex me-3">
-                    <button class="btn btn-outline-light" type="submit">
-                        <i class="bi bi-cart-fill me-1"></i>
-                        Panier
-                        <span class="badge bg-light text-dark ms-1 rounded-pill">0</span>
-                    </button>
-                </form>
+                {% set cart = app.session.get('cart') ?? {} %}
+                {% set cart_count = 0 %}
+                {% for q in cart %}
+                    {% set cart_count = cart_count + q %}
+                {% endfor %}
+
+                <a href="{{ path('cart_view') }}" class="btn btn-outline-light position-relative">
+                    <i class="bi bi-cart-fill me-1"></i>
+                    Panier
+                    <span class="badge bg-light text-dark ms-1 rounded-pill">
+                        {{ cart_count }}
+                    </span>
+                </a>
                 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle hover-lift" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

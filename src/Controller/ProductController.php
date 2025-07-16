@@ -41,7 +41,7 @@ class ProductController extends AbstractController
       throw $this->createNotFoundException('Produit non trouvé');
     }
 
-    return $this->render('product/details.html.twig', [
+    return $this->render('#', [
       'product' => $product,
     ]);
   }
