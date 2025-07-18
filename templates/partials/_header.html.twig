@@ -26,11 +26,15 @@
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">
-                {% set cart = app.session.get('cart') ?? {} %}
                 {% set cart_count = 0 %}
-                {% for q in cart %}
-                    {% set cart_count = cart_count + q %}
-                {% endfor %}
+                {% if app.user %}
+                    {% set cart = app.user.carts|filter(c => c.status == 'en_cours')|first %}
+                    {% if cart %}
+                        {% for item in cart.cartItems %}
+                            {% set cart_count = cart_count + item.quantity %}
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
 
                 <a href="{{ path('cart_view') }}" class="btn btn-outline-light position-relative">
                     <i class="bi bi-cart-fill me-1"></i>

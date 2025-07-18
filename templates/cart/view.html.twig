@@ -10,6 +10,7 @@
         <table class="table table-bordered align-middle">
             <thead class="table-light">
                 <tr>
+                    <th>Image</th>
                     <th>Produit</th>
                     <th>Quantité</th>
                     <th>Prix unitaire</th>
@@ -20,6 +21,9 @@
             <tbody>
                 {% for item in cart %}
                     <tr>
+                        <td>
+                        <img src="{{ item.product.image ?: 'https://dummyimage.com/60x60/dee2e6/6c757d.jpg' }}" alt="{{ item.product.name }}" width="60">
+                        </td>
                         <td>{{ item.product.name }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>{{ item.product.price|number_format(2, ',', ' ') }} €</td>

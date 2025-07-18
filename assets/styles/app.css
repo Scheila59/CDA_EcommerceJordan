@@ -43,3 +43,8 @@ body {
 .hover-lift:hover {
     animation: subtle-hover 0.3s ease;
 }
+
+.btn-zoom:hover {
+    transform: scale(1.07);
+    transition: transform 0.2s;
+}
